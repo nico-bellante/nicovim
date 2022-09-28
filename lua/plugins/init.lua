@@ -14,9 +14,22 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
   -- my plugins here
-  -- core stuff
 
+  -- core stuff
   use("nvim-lua/plenary.nvim")
+
+  -- extended editor functionality
+  use({ "mhinz/vim-grepper", cmd = "GrepperRg" })
+
+  -- telescope
+  use({
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.0",
+    requires = { { "nvim-lua/plenary.nvim" } },
+    config = function()
+      require("telescope").setup({})
+    end,
+  })
 
   -- theme stuff
   use("kyazdani42/nvim-web-devicons")
@@ -33,6 +46,13 @@ return require("packer").startup(function(use)
   use("tpope/vim-fugitive")
 
   -- lsp stuff
+  use({
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  })
+
   use({
     "neovim/nvim-lspconfig",
     config = function()
