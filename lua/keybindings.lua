@@ -8,3 +8,11 @@ map("n", "<C-j>", "<C-w>j", { noremap = true, silent = false })
 map("n", "<C-k>", "<C-w>k", { noremap = true, silent = false })
 
 map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+
+map("n", "\\f", "<cmd> Telescope live_grep<CR>", { noremap = true, silent = false })
+map("n", "\\\\", "<cmd> Telescope find_files<CR>", { noremap = true, silent = false })
+
+map("n", "<leader><leader>", "<cmd> Telescope <CR>", { noremap = true, silent = false })
+
+-- open corresponding css modules
+map("n", "<leader>cm", "<cmd> :vsplit %<.module.css <CR>", { noremap = true, silent = false })
