@@ -1,17 +1,15 @@
 local lspconfig = require("lspconfig")
 
-local M = {}
-
-M.on_attach = function(client, bufnr)
+local on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
   client.server_capabilities.documentRangeFormattingProvider = false
   client.resolved_capabilities.document_formatting = false
   client.resolved_capabilities.document_range_formatting = false
 end
 
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-M.capabilities.textDocument.completion.completionItem = {
+capabilities.textDocument.completion.completionItem = {
   documentationFormat = { "markdown", "plaintext" },
   snippetSupport = true,
   preselectSupport = true,
@@ -30,8 +28,8 @@ M.capabilities.textDocument.completion.completionItem = {
 }
 
 lspconfig.sumneko_lua.setup({
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
+  on_attach = on_attach,
+  capabilities = capabilities,
 
   settings = {
     Lua = {
@@ -50,4 +48,11 @@ lspconfig.sumneko_lua.setup({
   },
 })
 
-return M
+local servers = { "pyright", "tsserver", "eslint" }
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+end

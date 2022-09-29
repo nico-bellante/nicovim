@@ -16,3 +16,5 @@ map("n", "<leader><leader>", "<cmd> Telescope <CR>", { noremap = true, silent = 
 
 -- open corresponding css modules
 map("n", "<leader>cm", "<cmd> :vsplit %<.module.css <CR>", { noremap = true, silent = false })
+
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition() <CR>", { noremap = true, silent = false })
